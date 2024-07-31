@@ -132,6 +132,45 @@
             the text. Paste your text and select the 'Remove Extra Spaces' option to tidy it up.</p>
         <div class="example">Example: This is an example of removing extra spaces.</div>
 
+        <h2>Remove HTML</h2>
+        <p>The Remove HTML feature strips out any HTML tags from your text, leaving only the raw text content. This is
+            useful when you want to extract plain text from HTML-formatted content. Simply paste your HTML text and
+            select the 'Remove HTML' option to clean it up.</p>
+        <div class="example">Example: <span style="display:none;">This is some hidden HTML.</span> This is visible text.
+        </div>
+
+        <h2>Remove Special Characters</h2>
+        <p>The Remove Special Characters feature is designed to clean up your text by eliminating any non-alphanumeric
+            characters. This can be particularly useful when you need to sanitize input or remove unwanted symbols.
+            Paste your text and select the 'Remove Special Characters' option to tidy it up.</p>
+        <div class="example">Example: Hello World 123! @# (cleaned: Hello World 123)</div>
+
+        <h2>Find and Replace</h2>
+        <p>The Find and Replace feature allows you to search for specific text within your input and replace it with
+            different text. This is particularly useful for making bulk changes in your text. Enter the text to find and
+            the text to replace it with, then click 'Replace' to apply the changes.</p>
+        <div class="example">Example: Find: 'hello', Replace with: 'hi' (Result: hi World)</div>
+
+        <h2>Display Statistics</h2>
+        <p>The Display Statistics feature provides a detailed analysis of your text, including the number of words,
+            characters, sentences, and paragraphs. This can be useful for analyzing text length or ensuring content
+            meets specific requirements. Paste your text and select the 'Display Statistics' option to view the details.
+        </p>
+        <div class="example">Example: Text: "Hello world. How are you?" (Words: 4, Characters: 20, Sentences: 2)</div>
+
+        <h2>Save and Load File</h2>
+        <p>The Save and Load File feature allows you to save your formatted text to a file or load text from a file into
+            the tool. This is handy for saving your work or retrieving text from a file for further processing. Use the
+            'Save' button to download your text and the 'Load' button to upload a text file.</p>
+        <div class="example">Example: Save your formatted text as 'tcc.txt' and load it later for continued
+            editing.</div>
+
+        <h2>Encode and Decode Base64</h2>
+        <p>The Encode and Decode Base64 feature allows you to convert text to and from Base64 encoding. Base64 encoding
+            is commonly used to encode binary data into a text format. Use the 'Encode' button to convert text to
+            Base64, or the 'Decode' button to convert Base64-encoded text back to its original form.</p>
+        <div class="example">Example: Encode: 'Hello' (Base64: 'SGVsbG8='), Decode: 'SGVsbG8=' (Text: 'Hello')</div>
+
         <h2>Why Use a Text Case Converter?</h2>
         <p>A Text Case Converter is an invaluable tool for anyone working with text. Whether you're preparing a
             document, writing a title, or just fixing text errors, this tool can save you time and effort. Simply paste
@@ -183,12 +222,12 @@
             });
 
             let btnu = document.querySelector('#btnu');
-            btnu.addEventListener('click', function(){
+            btnu.addEventListener('click', function () {
                 window.location.href = 'index.html';
             })
 
             let htu = document.querySelector('#button');
-            htu.addEventListener('click', function(){
+            htu.addEventListener('click', function () {
                 window.location.href = 'index.html';
             })
 

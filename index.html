@@ -16,7 +16,7 @@
     <meta name="description"
         content="Effortless text transformation in a click. Convert text cases into uppercase, lowercase, sentence case or remove exra spaces.">
     <meta name="keywords"
-        content="tcc, case convert, text convert, best convertor, easy text convertor, text change, text conversion, text case converter, text transformation, uppercase, lowercase, title case, sentence case, alternating case, remove spaces, remove extra spaces">
+        content="tcc, case convert, text convert, best convertor, easy text convertor, text change, text conversion, text case converter, text transformation, uppercase, lowercase, title case, sentence case, alternating case, remove spaces, remove extra spaces, tccgithub, tcc github">
 </head>
 
 <body>
@@ -76,6 +76,18 @@
             <button id="sentenceCaseButton" aria-label="Convert to Sentence Case">Sentence Case</button>
             <button id="alternatingCaseButton" aria-label="Convert to aLtErNaTiNg Case">aLtErNaTiNg cAsE</button>
             <button id="removeextraspace" aria-label="Remove Extra Space">Remove Extra Space</button>
+            <button id="removeHtmlButton" aria-label="Remove Html Tags">Remove HTML Tags</button>
+            <button id="removeSpecialCharButton" aria-label="Remove Special Characters">Remove Special
+                Characters</button>
+            <button id="calculateTextStatisticsButton" aria-label="Calculate Text Statistics">Text Statistics</button>
+            <button id="findAndReplaceButton" aria-label="Find And Replace">Find and Replace</button>
+            <button id="saveTextToFileButton" aria-label="Save Text To File">Save</button>
+            <button id="loadTextFromFileButton" aria-label="Load Text From File">Load</button>
+            <button id="encodeToBase64Button" aria-label="Encode To Base64" onclick="encodeText()">Encode to
+                Base64</button>
+            <button id="decodeFromBase64Button" aria-label="Decode From Base64" onclick="decodeText()">Decode from
+                Base64</button>
+
             <div class="buttons-wrapper">
                 <div class="buttons">
                     <button class="btn" id="clearButton">
@@ -104,6 +116,7 @@
             <p>Words: <span id="wordCount">0</span></p>
             <p>Characters: <span id="charCount">0</span></p>
         </div>
+        <input type="file" id="fileInput" style="display:none;" onchange="handleFileLoad(event)">
     </main>
     <footer>&copy;copyright 2024 - all rights reserved !</footer>
     <script src="./js/script.js" defer></script>

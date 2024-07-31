@@ -5,41 +5,48 @@ document.addEventListener("DOMContentLoaded", () => {
     titleCaseButton: toTitleCase,
     sentenceCaseButton: toSentenceCase,
     alternatingCaseButton: toAlternatingCase,
-    clearButton: () => "",
     removeextraspace: removeExtraSpaces,
+    removeHtmlButton: removeHtmlTags,
+    removeSpecialCharButton: removeSpecialCharacters,
+    calculateTextStatisticsButton: calculateTextStatistics,
+    findAndReplaceButton: findAndReplace,
+    saveTextToFileButton: saveTextToFile,
+    loadTextFromFileButton: loadTextFromFile,
+    encodeToBase64Button: encodeToBase64,
+    decodeFromBase64Button: decodeFromBase64,
   };
 
   const inputText = document.getElementById("inputText");
   const outputText = document.getElementById("outputText");
   const wordCountSpan = document.getElementById("wordCount");
   const charCountSpan = document.getElementById("charCount");
+  const fileInput = document.getElementById("fileInput");
 
   Object.keys(buttons).forEach((id) => {
     const button = document.getElementById(id);
     if (button) {
       button.addEventListener("click", () => {
         const newText = buttons[id](inputText.value);
-        outputText.value = newText;
-        if (id === "clearButton") {
-          inputText.value = "";
+        if (
+          id !== "calculateTextStatisticsButton" &&
+          id !== "findAndReplaceButton"
+        ) {
+          outputText.value = newText;
+          if (id === "clearButton") {
+            inputText.value = "";
+            outputText.value = "";
+          }
+          updateCounts(newText);
         }
-        updateCounts(newText);
       });
     }
   });
 
   const copyButton = document.getElementById("copyButton");
   copyButton.addEventListener("click", () => {
-    outputText.select();
-    document.execCommand("copy");
-    window.getSelection().removeAllRanges();
-  });
-
-  copyButton.addEventListener("click", function () {
-    outputText.select();
-    document.execCommand("copy");
-    window.getSelection().removeAllRanges();
-    showCopyConfirmation();
+    navigator.clipboard.writeText(outputText.value).then(() => {
+      showCopyConfirmation();
+    });
   });
 
   function showCopyConfirmation() {
@@ -82,7 +89,82 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function removeExtraSpaces(str) {
-    return str.replace(/\s+/g, ' ').trim();
+    return str.replace(/\s+/g, " ").trim();
+  }
+
+  function removeHtmlTags(str) {
+    return str.replace(/<\/?[^>]+(>|$)/g, "");
+  }
+
+  function removeSpecialCharacters(str) {
+    return str.replace(/[^\w\s]/gi, "");
+  }
+
+  function calculateTextStatistics(str) {
+    const words = countWords(str);
+    const characters = str.length;
+    const sentences = str.split(/[.!?]+/).filter(Boolean).length;
+    const paragraphs = str.split(/\n\n+/).filter(Boolean).length;
+    const avgWordLength = (str.length / words).toFixed(2);
+    const readingTime = (words / 200).toFixed(2);
+
+    outputText.value = `Sentences: ${sentences}\nParagraphs: ${paragraphs}\nAverage Word Length: ${avgWordLength}\nEstimated Reading Time: ${readingTime} minutes \n\nthanks for using @tcc !\n\n\n`;
+    return str;
+  }
+
+  function findAndReplace(str) {
+    const findText = prompt("Enter the text to find:");
+    const replaceText = prompt("Enter the replacement text:");
+    if (findText !== null && replaceText !== null) {
+      const result = str.split(findText).join(replaceText);
+      if (str === result) {
+        outputText.value = "No occurrences found or no change made";
+      } else {
+        outputText.value = result;
+      }
+      updateCounts(result);
+      return result;
+    }
+    return str;
+  }
+
+  function saveTextToFile() {
+    const blob = new Blob([outputText.value], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "tcc.txt";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      outputText.value = "File saved";
+      document.body.removeChild(a);
+    }, 100);
+  }
+
+  function loadTextFromFile() {
+    fileInput.click();
+  }
+
+  function handleFileLoad(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        inputText.value = e.target.result;
+        updateCounts(e.target.result);
+        outputText.value = "File loaded";
+      };
+      reader.readAsText(file);
+    }
+  }
+
+  function encodeToBase64(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+
+  function decodeFromBase64(str) {
+    return decodeURIComponent(escape(atob(str)));
   }
 
   function updateCounts(text) {
@@ -95,8 +177,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return str ? str.split(/\s+/).length : 0;
   }
 
-  let htu = document.querySelector('.htu');
-  htu.addEventListener('click', function() {
-    window.location.href = 'htu.html';
+  let htu = document.querySelector(".htu");
+  htu.addEventListener("click", function () {
+    window.location.href = "htu.html";
+  });
+
+  fileInput.addEventListener("change", handleFileLoad);
+
+  document.getElementById("clearButton").addEventListener("click", () => {
+    inputText.value = "";
+    outputText.value = "";
   });
 });
